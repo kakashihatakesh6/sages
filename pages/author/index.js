@@ -21,9 +21,15 @@ const index = () => {
             const fetchUser = async () => {
                 const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/getuser`;
                 try {
+                    let axiosConfig = {
+                        headers: {
+                            'Content-Type': 'application/json;charset=UTF-8',
+                            "Access-Control-Allow-Origin": "*",
+                        }
+                    };
                     const token = localStorage.getItem('token');
                     let data = {token: token};
-                    const res = await axios.post(endpoint, { data: data });
+                    const res = await axios.post(endpoint, { data: data }, axiosConfig);
                     const result = await res.data;
                     console.log("res =>", result);
                     if (result.success) {

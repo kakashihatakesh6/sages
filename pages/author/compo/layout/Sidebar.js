@@ -20,7 +20,13 @@ const Sidebar = () => {
                 const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/getuser`;
                 const data = {token: token}
                 try {
-                    const res = await axios.post(endpoint, { data: data});
+                    let axiosConfig = {
+                        headers: {
+                            'Content-Type': 'application/json;charset=UTF-8',
+                            "Access-Control-Allow-Origin": "*",
+                        }
+                    };
+                    const res = await axios.post(endpoint, { data: data}, axiosConfig);
                     const result = await res.data;
                     if (result.success) {
                         setUser(result.user);
