@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Notice from '@/models/Notice';
 import mongoose from 'mongoose';
+import axios from 'axios';
 
 const AddNoticeLinks = ({ noticeLinks }) => {
     const [NoticeList, setNoticeList] = useState()
@@ -37,18 +38,10 @@ const AddNoticeLinks = ({ noticeLinks }) => {
             let endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/addnotice`;
 
             try {
-                let res = await fetch(endPoint, {
-                    method: "POST",
-                    headers: {
-                        'Content-type': "application/json",
-                    },
-                    body: JSON.stringify(data),
-                });
+                let res = await axios.post(endPoint, { data: data })
+                let result = res.data;
 
-                let result = await res.json();
-                console.log(result)
-
-                if (result.success === true) {
+                if ( result.success === true ) {
                     console.log({ message: "Notice added successfully!" });
                     toast.success("Notice added successfully!", {
                         position: "top-left",
@@ -64,7 +57,7 @@ const AddNoticeLinks = ({ noticeLinks }) => {
                     setFormData({ noticeTitle: "", noticeLink: "" });
 
                 } else {
-                    toast.error(`Sorry, ${result.message}`, {
+                    toast.error(`Sorry, Please Enter the right inputs`, {
                         position: "bottom-center",
                         autoClose: 1000,
                         hideProgressBar: false,
@@ -78,6 +71,16 @@ const AddNoticeLinks = ({ noticeLinks }) => {
 
             } catch (error) {
                 console.log({ error: "Some Error Occurred!" })
+                toast.error(`Sorry, Please Enter the right inputs`, {
+                    position: "bottom-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
             }
 
         }

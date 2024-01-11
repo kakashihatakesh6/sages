@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Sidebar from './compo/layout/Sidebar'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 const AddAdmin = () => {
     const [selectedImage, setselectedImage] = useState(null);
@@ -39,10 +40,8 @@ const AddAdmin = () => {
         if (file) {
             reader.readAsDataURL(file);
         }
-        
+
     }
-
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -54,15 +53,14 @@ const AddAdmin = () => {
             console.log("Im hit", data, endPoint)
 
             try {
-                let res = await fetch(endPoint, {
-                    method: "POST",
+                let axiosConfig = {
                     headers: {
-                        'Content-type': "application/json",
-                    },
-                    body: JSON.stringify(data),
-                });
-
-                let result = await res.json();
+                        'Content-Type': 'application/json;charset=UTF-8',
+                        "Access-Control-Allow-Origin": "*",
+                    }
+                };
+                let res = await axios.post(endPoint, { data: data }, axiosConfig)
+                let result = res.data;
                 console.log(result)
 
                 if (result.success === true) {
@@ -199,7 +197,7 @@ const AddAdmin = () => {
 
                                 <div>
                                     <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
-                                    <input autoComplete="aa" name='phone' value={FormData.phone} onChange={handleChange} type="text" id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123-45-678"  required />
+                                    <input autoComplete="aa" name='phone' value={FormData.phone} onChange={handleChange} type="text" id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123-45-678" required />
                                 </div>
 
                                 <div className="mb-4">

@@ -7,9 +7,9 @@ const generateId = () => {
 }
 
 const handler = async (req, res) => {
+    
     if (req.method == "POST") {
         const { name, category, images } = req.body;
-        console.log("Images =>", images.length, generateId());
         const galleryImage = await Gallery.findOne({ name: "name" });
         if (galleryImage) {
             res.status(500).json({ success: false, message: "Image Already Exists" });

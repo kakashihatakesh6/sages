@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Sidebar from './compo/layout/Sidebar'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 const AddEvents = () => {
     const [selectedImage, setselectedImage] = useState(null);
@@ -42,20 +43,13 @@ const AddEvents = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (FormData.name !== "" && FormData.email !== "" && FormData.role !== "" && FormData.gender !== "") {
+        if (FormData.name !== "" && FormData.description !== "" && FormData.date !== "" ) {
             let data = FormData;
             let endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/addevent`;
 
             try {
-                let res = await fetch(endPoint, {
-                    method: "POST",
-                    headers: {
-                        'Content-type': "application/json",
-                    },
-                    body: JSON.stringify(data),
-                });
-
-                let result = await res.json();
+                let res = await axios.post(endPoint, {data: data})
+                let result = res.data;
                 console.log(result);
 
                 if (result.success === true) {

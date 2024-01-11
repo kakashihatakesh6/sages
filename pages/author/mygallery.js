@@ -65,7 +65,6 @@ const MyGallery = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-
         if (FormData.name !== "") {
             let data = FormData;
             console.log("data =>", data);

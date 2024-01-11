@@ -3,8 +3,9 @@ import User from "@/models/User";
 const jwt = require('jsonwebtoken');
 
 const handler = async (req, res) => {
+
     if (req.method === "POST") {
-        const { token } = req.body;
+        const { token } = req.body.data;
         let user = jwt.verify(token, process.env.JWT_KEY);
         let dbuser = await User.findOne({email: user.email});
         if (dbuser) {

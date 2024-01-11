@@ -17,19 +17,29 @@ const index = () => {
             router.push('/')
         }
         if (token) {
+            
             const fetchUser = async () => {
                 const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/getuser`;
-                const res = await axios.post(endpoint, { token: token });
-                const result = await res.data;
-                console.log("res =>", result);
-                if (result.success) {
-                    setUser(result.user);
+                try {
+                    const token = localStorage.getItem('token');
+                    let data = {token: token};
+                    const res = await axios.post(endpoint, { data: data });
+                    const result = await res.data;
+                    console.log("res =>", result);
+                    if (result.success) {
+                        setUser(result.user);
+                    }
+                } catch (error) {
+                    console.log("Error occurred!");
                 }
+
             }
+            
             fetchUser();
         }
 
     }, [])
+
     return (
         <div>
 

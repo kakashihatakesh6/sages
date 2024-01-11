@@ -4,12 +4,12 @@ const CryptoJS = require("crypto-js");
 const jwt = require('jsonwebtoken');
 const handler = async (req, res) => {
     if (req.method === "POST") {
-        const { email, password } = req.body;
+        const { email, password } = req.body.data;
         const user = await User.findOne({ email: email });
         if (user) {
             try {
                 const bytes = CryptoJS.AES.decrypt(user.password, process.env.AES_SECRET);
-                var decryptedPass = bytes.toString(CryptoJS.enc.Utf8);
+                let decryptedPass = bytes.toString(CryptoJS.enc.Utf8);
                 if ((user.email === email) && (decryptedPass === password)) {
                     const token = jwt.sign({ name: user.name, email: user.email }, process.env.JWT_KEY, { expiresIn: "2d" })
                     res.status(200).json({ success: true, token: token });

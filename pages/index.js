@@ -26,14 +26,14 @@ import mongoose from 'mongoose';
 import Notice from '@/models/Notice';
 
 
-export default function Home({ noticeLinks }) {
+export default function Home({ nLinks }) {
   const [NoticeList, setNoticeList] = useState();
 
   useEffect(() => {
-    setNoticeList(noticeLinks);
-
+    setNoticeList(nLinks);
+    console.log("NOTICE LIST =>", nLinks);
   }, [])
-  console.log("Notice list =>", NoticeList);
+
 
   const images = [
     "https://www.davschool.org/3/img/slider/best-schools-in-rajendra-nagar-patna.png",
@@ -79,7 +79,6 @@ export default function Home({ noticeLinks }) {
       try {
         const res = await axios.get(endpoint);
         const result = await res.data;
-        console.log(res)
         if (result.success) {
           setEventList(result.EventList);
         }
@@ -253,9 +252,9 @@ export default function Home({ noticeLinks }) {
 
                 <div className="section-heading mx-auto">
                   <h2 className={styles.sectionTitle}>What's New</h2>
-                </div>
+                </div>f
 
-                <div class="relative flex flex-col overflow-hidden mt-10 bg-[#6e9466] rounded-md">
+                <div className="relative flex flex-col overflow-hidden mt-10 bg-[#6e9466] rounded-md">
 
                   <ul
                     className={`space-y-2 list-none text-sm font-sans px-2 py-3 ${styles.marqueeContainer} 
@@ -263,8 +262,8 @@ export default function Home({ noticeLinks }) {
 
 
                     {NoticeList && NoticeList.map((item, index) => (
-                      <>
-                        <li key={index} className='flex flex-row space-x-2 hover:underline hover:translate-x-2 hover:text-[#d5f5e4]
+                      <div key={index}>
+                        <li className='flex flex-row space-x-2 hover:underline hover:translate-x-2 hover:text-[#d5f5e4]
                      transition duration-300 ease-in-out delay-150 hover:scale-110 px-1'>
                           <FiExternalLink size={35} className='text-red-700' />
                           <span>
@@ -274,7 +273,7 @@ export default function Home({ noticeLinks }) {
 
                         </li>
                         <hr />
-                      </>
+                      </div>
                     ))}
 
                   </ul>
@@ -768,16 +767,16 @@ export default function Home({ noticeLinks }) {
         </section>
 
         {/* Testinomial */}
-        {/* <section class="text-gray-600 body-font">
-          <div class="container px-5 py-12 mx-auto">
-            <div class="flex flex-wrap -m-4">
-              <div class="lg:w-full lg:mb-0 mb-6 p-4">
-                <div class="h-full text-center">
-                  <img alt="testimonial" class="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="https://dummyimage.com/302x302"/>
-                    <p class="leading-relaxed mx-96">Edison bulb retro cloud bread echo park, helvetica stumptown taiyaki taxidermy 90's cronut +1 kinfolk. Single-origin coffee ennui shaman taiyaki vape DIY tote bag drinking vinegar cronut adaptogen squid fanny pack vaporware.</p>
-                    <span class="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4"></span>
-                    <h2 class="text-gray-900 font-bold title-font tracking-wider text-md">Nikhil Dasar</h2>
-                    <p class="text-gray-500">Software Engineer <br />Full Stack Web & Android Developer</p>
+        {/* <section className="text-gray-600 body-font">
+          <div className="container px-5 py-12 mx-auto">
+            <div className="flex flex-wrap -m-4">
+              <div className="lg:w-full lg:mb-0 mb-6 p-4">
+                <div className="h-full text-center">
+                  <img alt="testimonial" className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="https://dummyimage.com/302x302"/>
+                    <p className="leading-relaxed mx-96">Edison bulb retro cloud bread echo park, helvetica stumptown taiyaki taxidermy 90's cronut +1 kinfolk. Single-origin coffee ennui shaman taiyaki vape DIY tote bag drinking vinegar cronut adaptogen squid fanny pack vaporware.</p>
+                    <span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4"></span>
+                    <h2 className="text-gray-900 font-bold title-font tracking-wider text-md">Nikhil Dasar</h2>
+                    <p className="text-gray-500">Software Engineer <br />Full Stack Web & Android Developer</p>
                 </div>
               </div>
               
@@ -809,8 +808,8 @@ export async function getServerSideProps(context) {
     await mongoose.connect(process.env.MONGO_URI);
   }
 
-  const noticeLinks = await Notice.find();
+  const nLinks = await Notice.find();
 
   // Pass data to the page via props
-  return { props: { noticeLinks: JSON.parse(JSON.stringify(noticeLinks)) } }
+  return { props: { nLinks: JSON.parse(JSON.stringify(nLinks)) } }
 }

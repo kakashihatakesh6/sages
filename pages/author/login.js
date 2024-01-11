@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
 
 const Login = () => {
     const router = useRouter();
@@ -26,22 +27,16 @@ const Login = () => {
         e.preventDefault();
         let data = FormData;
         let endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/login`;
+        console.log(data)
 
         try {
 
-            let res = await fetch(endpoint, {
-                method: "POST",
-                headers: {
-                    "Content-type": "application/json",
-                },
-                body: JSON.stringify(data),
-            })
+            let res = await axios.post(endpoint, {data: data});
+            let mToken = res.data;
+            console.log("server res =>", mToken);
 
-            let result = await res.json()
-            console.log("server res =>", result);
-
-            if (result.success) {
-                localStorage.setItem("token", result.token);
+            if (mToken.success) {
+                localStorage.setItem("token", mToken.token);
                 toast.success("Logged in Successfully!", {
                     position: "top-left",
                     autoClose: 1000,

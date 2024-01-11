@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Sidebar from './compo/layout/Sidebar'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 const AddFaculty = () => {
     const [selectedImage, setselectedImage] = useState(null);
@@ -29,7 +30,6 @@ const AddFaculty = () => {
         const reader = new FileReader();
         reader.onloadend = () => {
             setselectedImage(reader.result);
-            console.log(reader)
             setFormData((prevData) => ({
                 ...prevData,
                 image: reader.result
@@ -49,16 +49,8 @@ const AddFaculty = () => {
             let endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/addfaculty`;
 
             try {
-                let res = await fetch(endPoint, {
-                    method: "POST",
-                    headers: {
-                        'Content-type': "application/json",
-                    },
-                    body: JSON.stringify(data),
-                });
-
-                let result = await res.json();
-                console.log(result);
+                let res = await axios.post(endPoint, {data: data})
+                let result = res.data;
 
                 if (result.success === true) {
                     console.log({ message: "Faculty Succcessfully registered!" });

@@ -7,10 +7,9 @@ const jwt = require('jsonwebtoken');
 const handler = async (req, res) => {
 
     if (req.method == "POST") {
-        let jwtToken = req.body.token;
+        let jwtToken = req.body.data.token;
         let user = jwt.verify(jwtToken, process.env.JWT_KEY);
-        let dbuser = await User.findOneAndUpdate({email: user.email}, {name: req.body.FormData.name, address: req.body.FormData.address, role: req.body.FormData.role, image: req.body.FormData.image, phone: req.body.FormData.phone});
-        console.log("dbuser =>", dbuser)
+        let dbuser = await User.findOneAndUpdate({email: user.email}, {name: req.body.data.FormData.name, address: req.body.data.FormData.address, role: req.body.data.FormData.role, image: req.body.data.FormData.image, phone: req.body.data.FormData.phone});
         const {name, email, role, image, address, phone} = dbuser;
         res.status(200).json({ name, email, role, image, address, phone });
     } 

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import "react-toastify/dist/ReactToastify.css";
+import axios from 'axios';
 
 const MyAccount = () => {
     const [selectedImage, setselectedImage] = useState(null);
@@ -73,15 +74,9 @@ const MyAccount = () => {
             console.log("Im hit", data, endPoint)
 
             try {
-                let res = await fetch(endPoint, {
-                    method: "POST",
-                    headers: {
-                        'Content-type': "application/json",
-                    },
-                    body: JSON.stringify(data),
-                });
+                let res = await axios.post(endPoint, {data: data})
 
-                let result = await res.json();
+                let result = res.data;
                 console.log(result)
 
                 if (result.success === true) {
@@ -147,42 +142,47 @@ const MyAccount = () => {
 
 
     const fetchData = async (token) => {
-        let data = { token: token }
-        let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getuser`, {
-            method: "POST",
-            headers: {
-                'Content-type': "application/json",
-            },
-            body: JSON.stringify(data),
-        })
 
-        let res = await a.json();
-        setUser(res.user);
-        console.log("Fetched User =>", res);
-        // console.log("FetchData =>", res);
-        setFormData((prevData) => ({
-            ...prevData, name: res.user.name, email: res.user.email, role: res.user.role, phone: res.user.phone, address: res.user.address
-        }))
-        setselectedImage(res.user.image)
+        try {
+            const endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/getuser`;
+            let data = { token: token }
+            console.log(data)
+            let axiosConfig = {
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    "Access-Control-Allow-Origin": "*",
+                }
+              };
+            let response = await axios.post(endPoint, { data: data }, axiosConfig);
+            let res = response.data;
+
+            setUser(res.user);
+
+            console.log("Fetched User =>", res);
+
+            setFormData((prevData) => ({
+                ...prevData, name: res.user.name, email: res.user.email, role: res.user.role, phone: res.user.phone, address: res.user.address
+            }))
+
+            setselectedImage(res.user.image)
+
+        } catch (error) {
+            console.log("Some Error occurred")
+        }
     }
 
     const handleUserSubmit = async () => {
         console.log("Form Data =>", FormData);
         try {
+            const endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/updateuser`;
             const token = localStorage.getItem("token");
             const data = {
                 FormData: FormData,
                 token: token
             };
-            const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/updateuser`, {
-                method: "POST",
-                headers: {
-                    "Content-type": "application/json"
-                },
-                body: JSON.stringify(data)
-            })
+            const res = await axios.post(endPoint, {data: data})
 
-            const edata = await res.json();
+            const edata = res.data;
             console.log("HandleUserSubmitData =>", edata);
             setFormData((prevData) => ({
                 ...prevData,
@@ -228,14 +228,9 @@ const MyAccount = () => {
 
                 const token = localStorage.getItem("token");
                 const data = { token: token, FormPass: FormPass };
+                let endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/updatepassword`;
 
-                const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/updatepassword`, {
-                    method: "POST",
-                    headers: {
-                        "Content-type": "application/json",
-                    },
-                    body: JSON.stringify(data)
-                });
+                const res = await axios.post(endPoint, {data: data});
                 const response = await res.json();
                 console.log("HandlePassData =>", response);
 
@@ -256,7 +251,7 @@ const MyAccount = () => {
                         password: "",
                         npassword: "",
                         cnpassword: ""
-                        
+
                     }))
 
                 } else {
@@ -422,27 +417,30 @@ const MyAccount = () => {
 
 
                             <div className="flex mx-auto my-2">
+                                <form className='flex w-[100%]'>
 
-                                <div className="px-2 w-1/3">
-                                    <div className="mb-4">
-                                        <label htmlFor="password" className="leading-7 text-sm text-gray-600">Password</label>
-                                        <input value={FormPass.password} placeholder="•••••••••" onChange={handleChangePassword} type="password" id="password" name="password" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                    <div className="px-2 w-1/3">
+                                        <div className="mb-4">
+                                            <label htmlFor="password" className="leading-7 text-sm text-gray-600">Password</label>
+                                            <input autoComplete='ae' value={FormPass.password} placeholder="•••••••••" onChange={handleChangePassword} type="password" id="password" name="password" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div className="px-2 w-1/3">
-                                    <div className="mb-4">
-                                        <label htmlFor="npassword" className="leading-7 text-sm text-gray-600">New Password</label>
-                                        <input value={FormPass.npassword} onChange={handleChangePassword} type="password" id="npassword" name="npassword" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                    <div className="px-2 w-1/3">
+                                        <div className="mb-4">
+                                            <label htmlFor="npassword" className="leading-7 text-sm text-gray-600">New Password</label>
+                                            <input autoComplete='ae' value={FormPass.npassword} onChange={handleChangePassword} type="password" id="npassword" name="npassword" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div className="px-2 w-1/3">
-                                    <div className="mb-4">
-                                        <label htmlFor="cnpassword" className="leading-7 text-sm text-gray-600">Confirm NewPassword</label>
-                                        <input value={FormPass.cnpassword} onChange={handleChangePassword} type="password" id="cnpassword" name="cnpassword" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                    <div className="px-2 w-1/3">
+                                        <div className="mb-4">
+                                            <label htmlFor="cnpassword" className="leading-7 text-sm text-gray-600">Confirm NewPassword</label>
+                                            <input autoComplete='ae' value={FormPass.cnpassword} onChange={handleChangePassword} type="password" id="cnpassword" name="cnpassword" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                        </div>
                                     </div>
-                                </div>
+                                    
+                                </form>
 
                             </div>
 

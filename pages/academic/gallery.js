@@ -26,7 +26,7 @@ const Gallery = ({myGallery}) => {
 
         }
 
-        // fetchGallery();
+        fetchGallery();
     }, [])
 
     console.log("topg => ", MyGalleryList);

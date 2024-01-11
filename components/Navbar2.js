@@ -55,8 +55,9 @@ const Navbar2 = ({ handleSignOut }) => {
 
             const fetchUser = async () => {
                 const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/getuser`;
+                const data = {token: token}
                 try {
-                    const res = await axios.post(endpoint, { token: token });
+                    const res = await axios.post(endpoint, { data: data });
                     const result = await res.data;
                     if (result.success) {
                         setUser(result.user);
@@ -70,8 +71,6 @@ const Navbar2 = ({ handleSignOut }) => {
             fetchUser();
         }
 
-        console.log("USer =>", user)
-
     }, [])
 
     return (
@@ -84,7 +83,7 @@ const Navbar2 = ({ handleSignOut }) => {
                     <Link href={"/"}
                         className="flex items-center pl-10 py-2 rtl:space-x-reverse"
                     >
-                        <Image src='/logo/logo-header.jpg' style={{ width: "290px", height: "50px" }} width={290} height={60} alt="image" />
+                        <img src='/logo/logo-header.jpg' style={{ width: "290px", height: "50px" }} alt="image" />
                     </Link>
 
                     <div className="flex items-center justify-between md:px-8 md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">

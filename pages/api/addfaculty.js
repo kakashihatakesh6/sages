@@ -3,8 +3,7 @@ import Faculty from "@/models/Faculty";
 
 const handler = async (req, res) => {
     if (req.method == "POST") {
-        const {name, email, role, phone, gender, image } = req.body;
-        // console.log("Faculty => ", req.body);
+        const {name, email, role, phone, gender, image } = req.body.data;
         const faculty = await Faculty.findOne({email: email});
         if (faculty) {
             res.status(500).json({success: false, message: "User Already Exists"});

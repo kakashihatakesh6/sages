@@ -5,8 +5,7 @@ const CryptoJS = require("crypto-js");
 
 const handler = async (req, res) => {
     if (req.method == "POST") {
-        const {name, email, role, phone, password, gender, image } = req.body;
-        console.log("req bod y => ", req.body);
+        const {name, email, role, phone, password, gender, image } = req.body.data;
         const user = await User.findOne({email: email});
         if (user) {
             res.status(500).json({success: false, message: "User Already Exists"});
