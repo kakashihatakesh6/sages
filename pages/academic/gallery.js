@@ -1,4 +1,4 @@
-import Gallery from '@/models/Gallery';
+// import Gallery from '@/models/Gallery';
 import axios from 'axios';
 import mongoose from 'mongoose';
 import React, { useEffect, useState } from 'react'
@@ -9,7 +9,7 @@ const MyGallery = ({ myGallery }) => {
 
     useEffect(() => {
 
-        setMyGalleryList(myGallery);
+        // setMyGalleryList(myGallery);
 
         const fetchGallery = async () => {
             const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/getgalleryimages`;
@@ -32,7 +32,7 @@ const MyGallery = ({ myGallery }) => {
         }
 
         fetchGallery();
-        
+
     }, [])
 
     console.log("topg => ", MyGalleryList);
@@ -45,7 +45,7 @@ const MyGallery = ({ myGallery }) => {
             <section className="text-gray-600 body-font">
                 <div className="container px-5 py-24 space-y-3 mx-auto">
 
-                    {MyGalleryList && MyGalleryList.map((item, index) => (
+                    {GalleryList && GalleryList.map((item, index) => (
                         <div key={index} className='space-y-1'>
                             <div className="flex">
                                 <h2 className='text-lg font-bold mx-2 text-blue-400'>{item.category}</h2>
@@ -88,21 +88,21 @@ const MyGallery = ({ myGallery }) => {
 
 export default MyGallery
 
-export async function getServerSideProps(context) {
-    let myGallery;
-    try {
-        if (!mongoose.connections[0].readyState) {
-            await mongoose.connect(process.env.MONGO_URI);
-        }
+// export async function getServerSideProps(context) {
+//     let myGallery;
+//     try {
+//         if (!mongoose.connections[0].readyState) {
+//             await mongoose.connect(process.env.MONGO_URI);
+//         }
 
-        myGallery = await Gallery.find();
-        return { props: { myGallery: JSON.parse(JSON.stringify(myGallery)) } }
+//         myGallery = await Gallery.find();
+//         return { props: { myGallery: JSON.parse(JSON.stringify(myGallery)) } }
 
-    } catch (error) {
-        console.log({error: "Server side props gallery"});
-        return { props: { } }
-    }
+//     } catch (error) {
+//         console.log({error: "Server side props gallery"});
+//         return { props: { } }
+//     }
 
     
-}
+// }
 
