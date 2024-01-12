@@ -41,7 +41,7 @@ const AddNoticeLinks = ({ noticeLinks }) => {
                 let res = await axios.post(endPoint, { data: data })
                 let result = res.data;
 
-                if ( result.success === true ) {
+                if (result.success === true) {
                     console.log({ message: "Notice added successfully!" });
                     toast.success("Notice added successfully!", {
                         position: "top-left",
@@ -163,12 +163,17 @@ export default AddNoticeLinks
 
 
 export async function getServerSideProps(context) {
+    let noticeLinks;
+    try {
+        if (!mongoose.connections[0].readyState) {
+            await mongoose.connect(process.env.MONGO_URI);
+        }
 
-    if (!mongoose.connections[0].readyState) {
-        await mongoose.connect(process.env.MONGO_URI);
+        noticeLinks = await Notice.find();
+
+    } catch (error) {
+        console.log({ error: "Server side props Notice Links" });
     }
-
-    const noticeLinks = await Notice.find();
 
     // Pass data to the page via props
     return { props: { noticeLinks: JSON.parse(JSON.stringify(noticeLinks)) } }

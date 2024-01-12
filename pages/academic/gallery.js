@@ -3,14 +3,14 @@ import mongoose from 'mongoose';
 import React, { useEffect, useState } from 'react'
 import MGallery from '@/models/Gallery';
 
-const Gallery = ({myGallery}) => {
+const Gallery = ({ myGallery }) => {
     const [GalleryList, setGalleryList] = useState([]);
     const [MyGalleryList, setMyGalleryList] = useState();
 
     useEffect(() => {
 
         setMyGalleryList(myGallery);
-        
+
 
         const fetchGallery = async () => {
             const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/getgalleryimages`;
@@ -83,12 +83,18 @@ const Gallery = ({myGallery}) => {
 export default Gallery
 
 export async function getServerSideProps(context) {
+    let myGallery;
+    try {
+        if (!mongoose.connections[0].readyState) {
+            await mongoose.connect(process.env.MONGO_URI);
+        }
 
-    if (!mongoose.connections[0].readyState) {
-        await mongoose.connect(process.env.MONGO_URI);
+        myGallery = await Gallery.find();
+
+    } catch (error) {
+        console.log({error: "Server side props gallery"});
     }
 
-    const myGallery = await MGallery.find();
 
     // Pass data to the page via props
     return { props: { myGallery: JSON.parse(JSON.stringify(myGallery)) } }

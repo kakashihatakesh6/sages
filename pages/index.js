@@ -803,12 +803,17 @@ export default function Home({ nLinks }) {
 
 
 export async function getServerSideProps(context) {
+  let nLinks;
+  try {
+    if (!mongoose.connections[0].readyState) {
+      await mongoose.connect(process.env.MONGO_URI);
+    }
 
-  if (!mongoose.connections[0].readyState) {
-    await mongoose.connect(process.env.MONGO_URI);
+    nLinks = await Notice.find();
+
+  } catch (error) {
+    console.log({ error: "Server side props nLinks home" });
   }
-
-  const nLinks = await Notice.find();
 
   // Pass data to the page via props
   return { props: { nLinks: JSON.parse(JSON.stringify(nLinks)) } }
