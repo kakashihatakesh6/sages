@@ -22,7 +22,7 @@ import 'swiper/css/effect-cards';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import mongoose from 'mongoose';
-import Notice from '@/models/Notice';
+// import Notice from '@/models/Notice';
 
 
 export default function Home({ nLinks }) {
