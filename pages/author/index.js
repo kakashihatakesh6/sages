@@ -13,9 +13,10 @@ const index = () => {
     useEffect(() => {
 
         const token = localStorage.getItem('token');
-        if (!token) {
-            router.push('/')
-        }
+        // if (!token) {
+        //     router.push('/')
+        // }
+
         if (token) {
             
             const fetchUser = async () => {

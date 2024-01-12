@@ -48,14 +48,12 @@ const Navbar2 = ({ handleSignOut }) => {
     useEffect(() => {
 
         const token = localStorage.getItem('token');
-        if (!token) {
-            router.push('/')
-        }
+
         if (token) {
 
             const fetchUser = async () => {
                 const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/getuser`;
-                const data = {token: token}
+                const data = { token: token }
                 try {
                     let axiosConfig = {
                         headers: {
@@ -65,6 +63,7 @@ const Navbar2 = ({ handleSignOut }) => {
                     };
                     const res = await axios.post(endpoint, { data: data }, axiosConfig);
                     const result = await res.data;
+                    console.log(user)
                     if (result.success) {
                         setUser(result.user);
                     }
@@ -77,7 +76,9 @@ const Navbar2 = ({ handleSignOut }) => {
             fetchUser();
         }
 
-    }, [])
+
+
+    }, [router])
 
     return (
         <>

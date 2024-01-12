@@ -12,9 +12,20 @@ const Sidebar = () => {
     useEffect(() => {
 
         const token = localStorage.getItem('token');
-        if (!token) {
-            router.push('/')
-        }
+
+
+        // // first manually mount the effect
+        // let mounted = true;
+        // if (!token && mounted) {
+        //     //check if component is currently mounted
+        //     router.push('/')
+        // }
+        // //cleanup side effects before unmounting
+        // return () => { mounted = false }
+
+        // if (!token) {
+        //     router.push('/')
+        // }
         if (token) {
             const fetchUser = async () => {
                 const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/getuser`;
