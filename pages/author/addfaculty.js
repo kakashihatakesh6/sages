@@ -204,9 +204,6 @@ const AddFaculty = () => {
             </div >
 
 
-
-
-
         </div >
     )
 }

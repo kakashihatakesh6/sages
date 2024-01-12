@@ -152,9 +152,6 @@ const AddNoticeLinks = ({ noticeLinks }) => {
             </div>
 
 
-
-
-
         </div >
     )
 }
@@ -170,11 +167,14 @@ export async function getServerSideProps(context) {
         }
 
         noticeLinks = await Notice.find();
+        // Pass data to the page via props
+        return { props: { noticeLinks: JSON.parse(JSON.stringify(noticeLinks)) } }
 
     } catch (error) {
         console.log({ error: "Server side props Notice Links" });
+        // Pass data to the page via props
+        return { props: {} }
     }
 
-    // Pass data to the page via props
-    return { props: { noticeLinks: JSON.parse(JSON.stringify(noticeLinks)) } }
+
 }

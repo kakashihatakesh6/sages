@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import SimpleImageSlider from "react-simple-image-slider";
 import styles from '@/styles/Home.module.css'
 import Carousel2 from '@/components/Carousel';
 import { FiExternalLink } from "react-icons/fi";
@@ -810,11 +809,14 @@ export async function getServerSideProps(context) {
     }
 
     nLinks = await Notice.find();
+    // Pass data to the page via props
+    return { props: { nLinks: JSON.parse(JSON.stringify(nLinks)) } }
 
   } catch (error) {
     console.log({ error: "Server side props nLinks home" });
+    // Pass data to the page via props
+    return { props: {} }
   }
 
-  // Pass data to the page via props
-  return { props: { nLinks: JSON.parse(JSON.stringify(nLinks)) } }
+
 }

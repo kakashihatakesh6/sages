@@ -1,9 +1,9 @@
+import Gallery from '@/models/Gallery';
 import axios from 'axios';
 import mongoose from 'mongoose';
 import React, { useEffect, useState } from 'react'
-import MGallery from '@/models/Gallery';
 
-const Gallery = ({ myGallery }) => {
+const MyGallery = ({ myGallery }) => {
     const [GalleryList, setGalleryList] = useState([]);
     const [MyGalleryList, setMyGalleryList] = useState();
 
@@ -80,7 +80,7 @@ const Gallery = ({ myGallery }) => {
     )
 }
 
-export default Gallery
+export default MyGallery
 
 export async function getServerSideProps(context) {
     let myGallery;
@@ -90,13 +90,14 @@ export async function getServerSideProps(context) {
         }
 
         myGallery = await Gallery.find();
-
+        return { props: { myGallery: JSON.parse(JSON.stringify(myGallery)) } }
     } catch (error) {
         console.log({error: "Server side props gallery"});
+        return { props: { } }
     }
 
 
     // Pass data to the page via props
-    return { props: { myGallery: JSON.parse(JSON.stringify(myGallery)) } }
+    
 }
 
