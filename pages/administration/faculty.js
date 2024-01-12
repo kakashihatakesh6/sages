@@ -9,7 +9,13 @@ const Faculty = () => {
         const fetchFaculty = async () => {
             const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/getfaculty`;
             try {
-                const res = await axios.post(endpoint);
+                let axiosConfig = {
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8',
+                        "Access-Control-Allow-Origin": "*",
+                    }
+                };
+                const res = await axios.post(endpoint, axiosConfig);
                 const result = await res.data;
                 if (result.success) {
                     setFacultyList(result.facultyList);
@@ -21,6 +27,7 @@ const Faculty = () => {
         }
 
         fetchFaculty();
+
     }, [])
 
     console.log("faculty =>", FacultyList);
