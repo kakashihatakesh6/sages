@@ -4,7 +4,7 @@ const CryptoJS = require("crypto-js");
 const jwt = require('jsonwebtoken');
 const handler = async (req, res) => {
     if (req.method === "POST") {
-        const { email, password } = req.body.data;
+        const { email, password } = req.body;
         const user = await User.findOne({ email: email });
         if (user) {
             try {

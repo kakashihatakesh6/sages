@@ -30,8 +30,18 @@ const Login = () => {
         console.log(data)
 
         try {
-            let res = await axios.post(endpoint, {data: data});
-            let mToken = res.data;
+            // let res = await axios.post(endpoint, {data: data});
+
+            let res = await fetch(endpoint, {
+                method: "POST",
+                headers: {
+                    'Content-type': "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+                body: JSON.stringify(data),
+            });
+
+            let mToken = await res.json();
             console.log("server res =>", mToken);
 
             if (mToken.success) {
@@ -66,7 +76,7 @@ const Login = () => {
 
         } catch (error) {
             console.log({ error: "error", message: "Invalid Credentials!" });
-            toast.error(`Sorry,`, {
+            toast.error(`Sorry, Invalid Credentials`, {
                 position: "bottom-center",
                 autoClose: 1000,
                 hideProgressBar: false,
