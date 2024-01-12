@@ -30,7 +30,13 @@ const Login = () => {
         console.log(data)
 
         try {
-            let res = await axios.post(endpoint, {data: data});
+            let axiosConfig = {
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    "Access-Control-Allow-Origin": "*",
+                }
+            };
+            let res = await axios.post(endpoint, {data: data}, axiosConfig);
             let mToken = res.data;
             console.log("server res =>", mToken);
 

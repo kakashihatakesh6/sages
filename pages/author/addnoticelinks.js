@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Sidebar from './compo/layout/Sidebar'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Notice from '@/models/Notice';
-import mongoose from 'mongoose';
+// import Notice from '@/models/Notice';
+// import mongoose from 'mongoose';
 import axios from 'axios';
 
 const AddNoticeLinks = ({ noticeLinks }) => {
@@ -159,22 +159,22 @@ const AddNoticeLinks = ({ noticeLinks }) => {
 export default AddNoticeLinks
 
 
-export async function getServerSideProps(context) {
-    let noticeLinks;
-    try {
-        if (!mongoose.connections[0].readyState) {
-            await mongoose.connect(process.env.MONGO_URI);
-        }
+// export async function getServerSideProps(context) {
+//     let noticeLinks;
+//     try {
+//         if (!mongoose.connections[0].readyState) {
+//             await mongoose.connect(process.env.MONGO_URI);
+//         }
 
-        noticeLinks = await Notice.find();
-        // Pass data to the page via props
-        return { props: { noticeLinks: JSON.parse(JSON.stringify(noticeLinks)) } }
+//         noticeLinks = await Notice.find();
+//         // Pass data to the page via props
+//         return { props: { noticeLinks: JSON.parse(JSON.stringify(noticeLinks)) } }
 
-    } catch (error) {
-        console.log({ error: "Server side props Notice Links" });
-        // Pass data to the page via props
-        return { props: {} }
-    }
+//     } catch (error) {
+//         console.log({ error: "Server side props Notice Links" });
+//         // Pass data to the page via props
+//         return { props: {} }
+//     }
 
 
-}
+// }
