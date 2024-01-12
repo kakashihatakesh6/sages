@@ -11,11 +11,16 @@ const MyGallery = ({ myGallery }) => {
 
         setMyGalleryList(myGallery);
 
-
         const fetchGallery = async () => {
             const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/getgalleryimages`;
             try {
-                const res = await axios.get(endpoint);
+                let axiosConfig = {
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8',
+                        "Access-Control-Allow-Origin": "*",
+                    }
+                };
+                const res = await axios.get(endpoint, axiosConfig);
                 const result = await res.data;
                 if (result.success) {
                     setGalleryList(result.GalleryList);
@@ -27,6 +32,7 @@ const MyGallery = ({ myGallery }) => {
         }
 
         fetchGallery();
+        
     }, [])
 
     console.log("topg => ", MyGalleryList);
@@ -91,13 +97,12 @@ export async function getServerSideProps(context) {
 
         myGallery = await Gallery.find();
         return { props: { myGallery: JSON.parse(JSON.stringify(myGallery)) } }
+
     } catch (error) {
         console.log({error: "Server side props gallery"});
         return { props: { } }
     }
 
-
-    // Pass data to the page via props
     
 }
 
