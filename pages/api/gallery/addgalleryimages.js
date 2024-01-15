@@ -10,7 +10,7 @@ const handler = async (req, res) => {
     
     if (req.method == "POST") {
         const { name, category, images } = req.body;
-        const galleryImage = await Gallery.findOne({ name: "name" });
+        const galleryImage = await Gallery.findOne({ name: name });
         if (galleryImage) {
             res.status(500).json({ success: false, message: "Image Already Exists" });
         }

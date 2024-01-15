@@ -35,7 +35,7 @@ const AddNoticeLinks = ({ noticeLinks }) => {
 
             let data = FormData;
             console.log("data =>", data);
-            let endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/addnotice`;
+            let endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/notice/addnotice`;
 
             try {
                 let res = await axios.post(endPoint, { data: data })

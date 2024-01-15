@@ -12,7 +12,7 @@ const MyGallery = ({ myGallery }) => {
         // setMyGalleryList(myGallery);
 
         const fetchGallery = async () => {
-            const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/getgalleryimages`;
+            const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/gallery/getgalleryimages`;
             try {
                 let axiosConfig = {
                     headers: {

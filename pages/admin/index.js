@@ -20,7 +20,7 @@ const index = () => {
         if (token) {
             
             const fetchUser = async () => {
-                const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/getuser`;
+                const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/users/getuser`;
                 try {
                     let axiosConfig = {
                         headers: {

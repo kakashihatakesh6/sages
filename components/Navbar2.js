@@ -52,7 +52,7 @@ const Navbar2 = ({ handleSignOut }) => {
         if (token) {
 
             const fetchUser = async () => {
-                const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/getuser`;
+                const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/users/getuser`;
                 const data = { token: token }
                 try {
                     let axiosConfig = {
@@ -128,7 +128,7 @@ const Navbar2 = ({ handleSignOut }) => {
 
                             {/*=========== Login Button ============*/}
                             {user === undefined && <div>
-                                <Link href={'/author/login'} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 
+                                <Link href={'/admin/login'} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 
                             font-medium rounded-lg text-sm mx-6 md:mx-0 px-4 py-2 md:px-5 md:py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700
                              focus:outline-none dark:focus:ring-blue-800">Login</Link>
                             </div>
@@ -177,7 +177,7 @@ const Navbar2 = ({ handleSignOut }) => {
                                         <ul className="py-2" aria-labelledby="user-menu-button">
                                             <li>
                                                 <Link
-                                                    href="/author"
+                                                    href="/admin"
                                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                                                 >
                                                     Dashboard

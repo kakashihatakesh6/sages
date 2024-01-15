@@ -70,7 +70,7 @@ const MyAccount = () => {
             && FormData.role !== "" && FormData.gender !== "") {
 
             let data = FormData;
-            let endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/adduser`;
+            let endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/users/adduser`;
             console.log("Im hit", data, endPoint)
 
             try {
@@ -144,7 +144,7 @@ const MyAccount = () => {
     const fetchData = async (token) => {
 
         try {
-            const endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/getuser`;
+            const endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/users/getuser`;
             let data = { token: token }
             console.log(data)
             let axiosConfig = {
@@ -174,7 +174,7 @@ const MyAccount = () => {
     const handleUserSubmit = async () => {
         console.log("Form Data =>", FormData);
         try {
-            const endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/updateuser`;
+            const endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/users/updateuser`;
             const token = localStorage.getItem("token");
             const data = {
                 FormData: FormData,
@@ -228,7 +228,7 @@ const MyAccount = () => {
 
                 const token = localStorage.getItem("token");
                 const data = { token: token, FormPass: FormPass };
-                let endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/updatepassword`;
+                let endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/users/updatepassword`;
 
                 const res = await axios.post(endPoint, {data: data});
                 const response = await res.json();

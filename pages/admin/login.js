@@ -58,7 +58,7 @@ const Login = () => {
                 });
 
                 setTimeout(() => {
-                    router.push('/author')
+                    router.push('/admin')
                 }, 1000);
 
             } else {

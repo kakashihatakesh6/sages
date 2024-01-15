@@ -26,12 +26,6 @@ import mongoose from 'mongoose';
 
 
 export default function Home({ nLinks }) {
-  const [NoticeList, setNoticeList] = useState();
-
-  useEffect(() => {
-    setNoticeList(nLinks);
-    console.log("NOTICE LIST =>", nLinks);
-  }, [])
 
 
   const images = [
@@ -74,7 +68,7 @@ export default function Home({ nLinks }) {
   const [EventList, setEventList] = useState([]);
   useEffect(() => {
     const fetchEvents = async () => {
-      const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/getevents`;
+      const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/event/getevents`;
       try {
         const res = await axios.get(endpoint);
         const result = await res.data;
@@ -89,6 +83,28 @@ export default function Home({ nLinks }) {
 
     fetchEvents();
   }, [])
+
+
+  const [NoticeList, setNoticeList] = useState([]);
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/notice/getnotice`;
+      try {
+        const res = await axios.get(endpoint);
+        const result = await res.data;
+        if (result.success) {
+          setNoticeList(result.NoticeList);
+        }
+      } catch (error) {
+        console.log({ error: "Some Error Occurred" });
+      }
+
+    }
+
+    fetchEvents();
+  }, [])
+
+  console.log("Notice =.>", NoticeList)
 
 
 
@@ -109,7 +125,7 @@ export default function Home({ nLinks }) {
             <SimpleImageSlider
               width={1470}
               height={600}
-              images={images}
+              images={images} 
               showBullets={false}
               showNavs={true}
               autoPlay={false}
@@ -191,9 +207,6 @@ export default function Home({ nLinks }) {
 
 
 
-
-
-
                 {/* <div className="Class-XII item-1 py-8 w-[full] h-[500px]">
                   <Swiper
                     // install Swiper modules
@@ -251,7 +264,7 @@ export default function Home({ nLinks }) {
 
                 <div className="section-heading mx-auto">
                   <h2 className={styles.sectionTitle}>What's New</h2>
-                </div>f
+                </div>
 
                 <div className="relative flex flex-col overflow-hidden mt-10 bg-[#6e9466] rounded-md">
 
@@ -265,9 +278,11 @@ export default function Home({ nLinks }) {
                         <li className='flex flex-row space-x-2 hover:underline hover:translate-x-2 hover:text-[#d5f5e4]
                      transition duration-300 ease-in-out delay-150 hover:scale-110 px-1'>
                           <FiExternalLink size={35} className='text-red-700' />
-                          <span>
+                          <span className='flex flex-wrap'>
                             <Link href={item.noticeLink} className='text-xs' >{item.noticeTitle}</Link>
-                            <span className='text-red-300'> New</span>
+                            <span >
+                              <img src="/texture/new.gif" style={{ width: "35px", height: "20px" }} alt="" />
+                            </span>
                           </span>
 
                         </li>
@@ -507,82 +522,15 @@ export default function Home({ nLinks }) {
                 <div className="container px-5 py-24 mx-auto">
                   <div className="flex flex-wrap -mx-4 -my-8">
 
-                    <div className="py-8 px-4 lg:w-1/4">
-                      <div className="h-full flex items-start">
-                        <div className="w-12 flex-shrink-0 flex flex-col text-center leading-none">
-                          <span className="text-gray-500 pb-2 mb-2 border-b-2 border-gray-200">Jan</span>
-                          <span className="font-medium text-lg text-gray-800 title-font leading-none">18</span>
-                        </div>
-                        <div className="flex-grow pl-6">
-                          <h2 className="tracking-widest text-xs title-font font-medium text-indigo-500 mb-1">Activity</h2>
-                          <div className="rounded-lg h-64 overflow-hidden">
-                            <img alt="content" className="object-cover object-center h-full w-full" src="https://www.southpoint.edu.in/wp-content/themes/southpoint-new/images/karate.jpg" />
-                          </div>
-                          <h1 className="title-font text-xl font-medium text-gray-900 mb-3">karate Training Classes</h1>
-                          <p className="leading-relaxed mb-5">Learning Karate is compulsory in South Point School. Students from Classes II to V take lessons from professional coaches</p>
-                          <a className="inline-flex items-center">
-                            <img alt="blog" src="/slider/haze.jpg" className="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center" />
-                            <span className="flex-grow flex flex-col pl-3">
-                              <span className="title-font font-medium text-gray-900">Nikhil Dasar</span>
-                            </span>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="py-8 px-4 lg:w-1/4">
-                      <div className="h-full flex items-start">
-                        <div className="w-12 flex-shrink-0 flex flex-col text-center leading-none">
-                          <span className="text-gray-500 pb-2 mb-2 border-b-2 border-gray-200">Jan</span>
-                          <span className="font-medium text-lg text-gray-800 title-font leading-none">22</span>
-                        </div>
-                        <div className="flex-grow pl-6">
-                          <h2 className="tracking-widest text-xs title-font font-medium text-indigo-500 mb-1">YOGA</h2>
-                          <div className="rounded-lg h-64 overflow-hidden">
-                            <img alt="content" className="object-cover object-center h-full w-full" src="https://www.southpoint.edu.in/wp-content/themes/southpoint-new/images/yoga.jpg" />
-                          </div>
-                          <h1 className="title-font text-xl font-medium text-gray-900 mb-3">Yoga Classes</h1>
-                          <p className="leading-relaxed mb-5">In South Point High School Physical Education classes are a perfect blend of Yoga, P.T. and Rock Climbing.</p>
-                          <a className="inline-flex items-center">
-                            <img alt="blog" src="/slider/haze.jpg" className="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center" />
-                            <span className="flex-grow flex flex-col pl-3">
-                              <span className="title-font font-medium text-gray-900">Akhil Dasar</span>
-                            </span>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="py-8 px-4 lg:w-1/4">
-                      <div className="h-full flex items-start">
-                        <div className="w-12 flex-shrink-0 flex flex-col text-center leading-none">
-                          <span className="text-gray-500 pb-2 mb-2 border-b-2 border-gray-200">Feb</span>
-                          <span className="font-medium text-lg text-gray-800 title-font leading-none">13</span>
-                        </div>
-                        <div className="flex-grow pl-6">
-                          <h2 className="tracking-widest text-xs title-font font-medium text-indigo-500 mb-1">CATEGORY</h2>
-                          <div className="rounded-lg h-64 overflow-hidden">
-                            <img alt="content" className="object-cover object-center h-full w-full" src="https://www.southpoint.edu.in/wp-content/themes/southpoint-new/images/school-events.jpg" />
-                          </div>
-                          <h1 className="title-font text-xl font-medium text-gray-900 mb-3">School Events</h1>
-                          <p className="leading-relaxed mb-5">Come winter and it is time for South Point School to host Ullas, the Inter-School Competition for junior students.</p>
-                          <a className="inline-flex items-center">
-                            <img alt="blog" src="/slider/haze.jpg" className="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center" />
-                            <span className="flex-grow flex flex-col pl-3">
-                              <span className="title-font font-medium text-gray-900">Holden Caulfield</span>
-                            </span>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-
+            
                     {EventList?.map((item, index) => (
 
                       <div key={index} className="py-8 px-4 lg:w-1/4">
                         <div className="h-full flex items-start">
                           <div className="w-12 flex-shrink-0 flex flex-col text-center leading-none">
                             <span className="text-gray-500 pb-2 mb-2 border-b-2 border-gray-200">{item.eventDate.split('-')[1]}</span>
-                            <span className="font-medium text-lg text-gray-800 title-font leading-none">{item.eventDate.split('-')[1]}</span>
+                            <span className="font-medium pb-2 text-lg text-gray-800 title-font leading-none">{item.eventDate.split('-')[0]}</span>
+                            {/* <span className="font-medium pb-2 text-lg text-gray-800 title-font leading-none">{item.eventDate.split('-')[2]}</span> */}
                           </div>
                           <div className="flex-grow pl-6">
                             <h2 className="tracking-widest text-xs title-font font-medium text-indigo-500 mb-1">SPORTS</h2>
@@ -610,68 +558,6 @@ export default function Home({ nLinks }) {
           </div>
         </section>
 
-
-
-
-        {/* Our Gallery Section */}
-        {/* <section className="gallery my-10">
-          <div className="galleryy flex flex-col items-center my-10 mx-auto px-2">
-            <div className="section-heading ">
-              <h2 className={styles.sectionTitle}>Our Gallery</h2>
-            </div>
-            <div className="images my-10">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="grid gap-4">
-                  <div>
-                    <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg" alt="" />
-                  </div>
-                  <div>
-                    <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg" alt="" />
-                  </div>
-                  <div>
-                    <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg" alt="" />
-                  </div>
-                </div>
-                <div className="grid gap-4">
-                  <div>
-                    <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt="" />
-                  </div>
-                  <div>
-                    <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg" alt="" />
-                  </div>
-                  <div>
-                    <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg" alt="" />
-                  </div>
-                </div>
-                <div className="grid gap-4">
-                  <div>
-                    <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg" alt="" />
-                  </div>
-                  <div>
-                    <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg" alt="" />
-                  </div>
-                  <div>
-                    <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg" alt="" />
-                  </div>
-                </div>
-                <div className="grid gap-4">
-                  <div>
-                    <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg" alt="" />
-                  </div>
-                  <div>
-                    <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg" alt="" />
-                  </div>
-                  <div>
-                    <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg" alt="" />
-                  </div>
-                </div>
-              </div>
-
-
-            </div>
-          </div>
-
-        </section> */}
 
 
         {/* Our Gallery Section */}

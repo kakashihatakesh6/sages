@@ -49,7 +49,7 @@ const AddAdmin = () => {
             && FormData.role !== "" && FormData.gender !== "") {
 
             let data = FormData;
-            let endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/adduser`;
+            let endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/users/adduser`;
             console.log("Im hit", data, endPoint)
 
             try {
@@ -64,9 +64,8 @@ const AddAdmin = () => {
                 console.log(result)
 
                 if (result.success === true) {
-                    console.log({ message: "User Succcessfully registered!" });
-                    localStorage.setItem('token', result.token);
-                    toast.success("User has been created!", {
+                    console.log({ message: "Admin Succcessfully registered!" });
+                    toast.success("Admin has been created!", {
                         position: "top-left",
                         autoClose: 1000,
                         hideProgressBar: false,

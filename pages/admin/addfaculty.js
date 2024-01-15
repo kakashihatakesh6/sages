@@ -46,7 +46,7 @@ const AddFaculty = () => {
         e.preventDefault();
         if (FormData.name !== "" && FormData.email !== "" && FormData.role !== "" && FormData.gender !== "") {
             let data = FormData;
-            let endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/addfaculty`;
+            let endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/faculty/addfaculty`;
 
             try {
                 let res = await axios.post(endPoint, {data: data})

@@ -7,7 +7,7 @@ const Faculty = () => {
     useEffect(() => {
 
         const fetchFaculty = async () => {
-            const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/getfaculty`;
+            const endpoint = `${process.env.NEXT_PUBLIC_HOST}/api/faculty/getfaculty`;
             try {
                 // let axiosConfig = {
                 //     headers: {

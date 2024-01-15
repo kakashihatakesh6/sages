@@ -132,8 +132,6 @@ const MyGallery = () => {
     };
 
 
-
-
     return (
         <div>
 
