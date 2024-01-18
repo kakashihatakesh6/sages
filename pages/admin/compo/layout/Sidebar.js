@@ -202,7 +202,7 @@ const Sidebar = () => {
 
                                     >
 
-                                        <p className="text-[#bdbdbd] font-semibold text-xl mx-2">Hi, <span className="text-[#747474]">{user?.name.split(" ")[0]}</span></p>
+                                        <p className="text-[#bdbdbd] hidden md:block font-semibold text-xl mx-2">Hi, <span className="text-[#747474]">{user?.name.split(" ")[0]}</span></p>
                                         <img
                                             className="w-8 h-8 rounded-full"
                                             src={user?.image || '/texture/user-avatar.png'}

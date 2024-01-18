@@ -6,8 +6,8 @@ export default function Document() {
       <Head>
         <link rel="shortcut icon" href="/favicon/swami-favicon.jpg" type="image/x-icon" />
       </Head>
-      <body>
-        <Main />
+      <body style={{backgroundImage: `url('https://www.html.am/images/backgrounds/background-image-2.gif')`, backgroundSize: 'fill'}}>
+        <Main/>
         <NextScript />
       </body>
     </Html>

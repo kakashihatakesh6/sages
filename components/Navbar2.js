@@ -22,6 +22,44 @@ const Navbar2 = ({ handleSignOut }) => {
     const router = useRouter();
     const [navbarDecrease, setnavbarDecrease] = useState(false)
 
+
+    let academicRoutes = [
+        '/academic/affiliation',
+        '/academic/feestructure',
+        '/academic/gallery',
+        '/academic/schooluniform',
+        '/academic/syllabus',
+        '/academic/onlinelecture',
+        '/academic/results',
+        '/academic/ebooks'
+    ]
+    let admininstrationRoutes = [
+        '/administration/faculty',
+        '/administration/schoolmanagement',
+        '/administration/studentcouncil',
+    ]
+    let activitiesRoutes = [
+        '/activities/cocircullaractivity',
+        '/activities/summeractivity',
+        '/activities/dailyactivity',
+        '/activities/annualactivity',
+       
+    ]
+    let admisssionRoutes = [
+        '/admission/admissionnotice',
+        '/admission/admissiononline',
+        '/admission/admissionprocedure',
+        '/admission/applicationstatus'
+    ]
+
+    useEffect(() => {
+      if (isSidebarOpen) {
+        setSidebarOpen(false)
+      }
+    }, [router.pathname])
+    
+   
+
     useEffect(() => {
 
         const navbarUp = () => {
@@ -88,7 +126,7 @@ const Navbar2 = ({ handleSignOut }) => {
 
                     {/*======= logo =============*/}
                     <Link href={"/"}
-                        className="flex items-center pl-10 py-2 rtl:space-x-reverse"
+                        className="flex items-center md:pl-10 py-2 rtl:space-x-reverse"
                     >
                         <img src='/logo/logo-header.jpg' style={{ width: "290px", height: "50px" }} alt="image" />
                     </Link>
@@ -145,7 +183,7 @@ const Navbar2 = ({ handleSignOut }) => {
                                 {/*========= User Admin Button ============= */}
                                 <Link href={'/'}
                                     type="button"
-                                    className="flex p-2 text-sm bg-white rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                                    className="flex p-2 mx-3 md:mx-0 text-sm bg-white rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                                     id="user-menu-button"
                                     aria-expanded="false"
                                     data-dropdown-toggle="user-dropdown"
@@ -165,7 +203,7 @@ const Navbar2 = ({ handleSignOut }) => {
                                         className="z-50 my-4 fixed top-[6rem] right-0 md:right-4 md:top-10 py-3 px-6 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
                                         id="user-dropdown"
                                     >
-                                        <div className="px-4 py-3">
+                                        <div className="flex flex-col px-4 py-3">
                                             <span className="block text-sm text-gray-900 dark:text-white">
                                                 {user?.name}
                                             </span>
@@ -202,7 +240,7 @@ const Navbar2 = ({ handleSignOut }) => {
                                             <li>
                                                 <button
                                                     onClick={handleSignOut}
-                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                                    className="flex px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                                                 >
                                                     Sign out
                                                 </button>
@@ -255,10 +293,11 @@ const Navbar2 = ({ handleSignOut }) => {
                                 <button href={"#"}
                                     id="dropdownNavbarLink"
                                     data-dropdown-toggle="dropdownNavbar"
-                                    className={`flex items-center justify-between w-full py-2 px-3 hover:bg-gray-100 
-                                    md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto 
-                                     md:dark:hover:text-blue-500 dark:focus:text-white dark:hover:bg-gray-700 
-                                     md:dark:hover:bg-transparent ${router.pathname === '/affiliation' ? 'md:text-blue-500 bg-blue-700 text-white' : 'md:text-gray-900 text-gray-900'}`}
+                                    className={`block py-2 px-3 rounded 
+                                    md:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 
+                                    md:p-0 md:dark:text-blue-500
+                                    hover:bg-blue-400 hover:text-white md:hover:bg-slate-100
+                                    ${academicRoutes.includes(router.pathname) ? 'md:text-blue-500 bg-blue-700 text-white' : 'md:text-gray-900 text-gray-900'}`}
                                 >
                                     Academic{" "}
                                 </button>
@@ -267,7 +306,8 @@ const Navbar2 = ({ handleSignOut }) => {
 
                                 {isAcademicOpen && <div
                                     id="dropdownNavbar"
-                                    className="z-10 font-normal fixed py-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+                                    className={`z-10 font-normal fixed py-2 md:left-auto left-36 bg-white divide-y divide-gray-100 rounded-lg 
+                                    shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}
                                 >
                                     <ul
                                         className="py-2 text-sm text-gray-700 dark:text-gray-200"
@@ -344,10 +384,11 @@ const Navbar2 = ({ handleSignOut }) => {
                                 <button
                                     id="dropdownNavbarLink"
                                     data-dropdown-toggle="dropdownNavbar"
-                                    className="flex items-center justify-between w-full py-2 px-3 text-gray-900 hover:bg-gray-100 
-                                    md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white
-                                     md:dark:hover:text-blue-500 dark:focus:text-white dark:hover:bg-gray-700 
-                                     md:dark:hover:bg-transparent "
+                                    className={`block py-2 px-3 rounded 
+                                    md:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 
+                                    md:p-0 md:dark:text-blue-500
+                                    hover:bg-blue-400 hover:text-white md:hover:bg-slate-100
+                                    ${admininstrationRoutes.includes(router.pathname) ? 'md:text-blue-500 bg-blue-700 text-white' : 'md:text-gray-900 text-gray-900'}`}
                                 >
                                     Admininstration{" "}
 
@@ -481,10 +522,11 @@ const Navbar2 = ({ handleSignOut }) => {
                                 <button
                                     id="dropdownNavbarLink"
                                     data-dropdown-toggle="dropdownNavbar"
-                                    className="flex items-center justify-between w-full py-2 px-3 text-gray-900 hover:bg-gray-100 
-                                    md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white
-                                     md:dark:hover:text-blue-500 dark:focus:text-white dark:hover:bg-gray-700 
-                                     md:dark:hover:bg-transparent "
+                                    className={`block py-2 px-3 rounded 
+                                    md:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 
+                                    md:p-0 md:dark:text-blue-500
+                                    hover:bg-blue-400 hover:text-white md:hover:bg-slate-100
+                                    ${activitiesRoutes.includes(router.pathname) ? 'md:text-blue-500 bg-blue-700 text-white' : 'md:text-gray-900 text-gray-900'}`}
                                 >
                                     Activities{" "}
 
@@ -543,10 +585,11 @@ const Navbar2 = ({ handleSignOut }) => {
                                 <button
                                     id="dropdownNavbarLink"
                                     data-dropdown-toggle="dropdownNavbar"
-                                    className="flex items-center justify-between w-full py-2 px-3 text-gray-900 hover:bg-gray-100 
-                                    md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white
-                                     md:dark:hover:text-blue-500 dark:focus:text-white dark:hover:bg-gray-700 
-                                     md:dark:hover:bg-transparent "
+                                    className={`block py-2 px-3 rounded 
+                                    md:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 
+                                    md:p-0 md:dark:text-blue-500
+                                    hover:bg-blue-400 hover:text-white md:hover:bg-slate-100
+                                    ${admisssionRoutes.includes(router.pathname) ? 'md:text-blue-500 bg-blue-700 text-white' : 'md:text-gray-900 text-gray-900'}`}
                                 >
                                     Admission{" "}
 
@@ -607,15 +650,17 @@ const Navbar2 = ({ handleSignOut }) => {
                                 }
 
                             </li>
+
                             <li onMouseEnter={() => { setHeloDeskOpen(true) }} onMouseLeave={() => setHeloDeskOpen(false)}>
 
                                 <button
                                     id="dropdownNavbarLink"
                                     data-dropdown-toggle="dropdownNavbar"
-                                    className="flex items-center justify-between w-full py-2 px-3 text-gray-900 hover:bg-gray-100 
-                                    md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white
-                                     md:dark:hover:text-blue-500 dark:focus:text-white dark:hover:bg-gray-700 
-                                     md:dark:hover:bg-transparent "
+                                    className={`block py-2 px-3 rounded 
+                                    md:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 
+                                    md:p-0 md:dark:text-blue-500
+                                    hover:bg-blue-400 hover:text-white md:hover:bg-slate-100
+                                    ${router.pathname === '/contact' ? 'md:text-blue-500 bg-blue-700 text-white' : 'md:text-gray-900 text-gray-900'}`}
                                 >
                                     Help Desk{" "}
 

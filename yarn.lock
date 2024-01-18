@@ -116,6 +116,11 @@
   resolved "https://registry.npmjs.org/@tsconfig/node16/-/node16-1.0.4.tgz"
   integrity sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==
 
+"@tweenjs/tween.js@^18.6.4":
+  version "18.6.4"
+  resolved "https://registry.npmjs.org/@tweenjs/tween.js/-/tween.js-18.6.4.tgz"
+  integrity sha512-lB9lMjuqjtuJrx7/kOkqQBtllspPIN+96OvTCeJ2j5FEzinoAXTdAMFnDAQT1KVPRlnYfBrqxtqP66vDM40xxQ==
+
 "@types/node@*":
   version "20.10.6"
   resolved "https://registry.npmjs.org/@types/node/-/node-20.10.6.tgz"
@@ -1467,13 +1472,6 @@ raw-body@2.5.1:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-react-awesome-slider@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.npmjs.org/react-awesome-slider/-/react-awesome-slider-4.1.0.tgz"
-  integrity sha512-cbPI1MTpVLKbEH6gf9bwtJb8Ja6R/YJonKbUQehfq2B2AAJkgDMeHntaa4SgGCRqWd55xKiT+CkjfKau1QRsKw==
-  dependencies:
-    web-animation-club "^0.6.0"
-
 "react-dom@^16.6.0 || ^17.0.0 || ^18.0.0", react-dom@^18, react-dom@^18.2.0, react-dom@>=16:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
@@ -1501,6 +1499,14 @@ react-icons@^4.12.0:
   resolved "https://registry.npmjs.org/react-icons/-/react-icons-4.12.0.tgz"
   integrity sha512-IBaDuHiShdZqmfc/TwHu6+d6k2ltNCf3AszxNmjJc1KUfXdEeRJOKyNvLmAHaarhzGmTSVygNdyu8/opXv2gaw==
 
+react-slideshow-image@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.npmjs.org/react-slideshow-image/-/react-slideshow-image-4.3.0.tgz"
+  integrity sha512-SPiZtZRcBYAtin5Nva5ZgnLlMQHCcccBInkJ2Q8PEBBBMGhXZgSlAm+3VoMDjKUWYfNjTN3gEL6y+SrBzBeLXQ==
+  dependencies:
+    "@tweenjs/tween.js" "^18.6.4"
+    resize-observer-polyfill "^1.5.1"
+
 react-toastify@^9.1.3:
   version "9.1.3"
   resolved "https://registry.npmjs.org/react-toastify/-/react-toastify-9.1.3.tgz"
@@ -1513,7 +1519,7 @@ react-top-loading-bar@^2.3.1:
   resolved "https://registry.npmjs.org/react-top-loading-bar/-/react-top-loading-bar-2.3.1.tgz"
   integrity sha512-rQk2Nm+TOBrM1C4E3e6KwT65iXyRSgBHjCkr2FNja1S51WaPulRA5nKj/xazuQ3x89wDDdGsrqkqy0RBIfd0xg==
 
-react@*, "react@^16 || ^17 || ^18", "react@^16.6.0 || ^17.0.0 || ^18.0.0", react@^18, react@^18.2.0, "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", react@>=16:
+react@*, "react@^16 || ^17 || ^18", "react@^16.6.0 || ^17.0.0 || ^18.0.0", react@^18, react@^18.2.0, "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", react@>=15, react@>=16:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
@@ -1551,6 +1557,11 @@ regexparam@^2.0.1:
   version "2.0.2"
   resolved "https://registry.npmjs.org/regexparam/-/regexparam-2.0.2.tgz"
   integrity sha512-A1PeDEYMrkLrfyOwv2jwihXbo9qxdGD3atBYQA9JJgreAx8/7rC6IUkWOw2NQlOxLp2wL0ifQbh1HuidDfYA6w==
+
+resize-observer-polyfill@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.npmjs.org/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz"
+  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
 
 resolve@^1.1.7, resolve@^1.22.1, resolve@^1.22.2:
   version "1.22.8"
@@ -1961,11 +1972,6 @@ watchpack@2.4.0:
   dependencies:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.2"
-
-web-animation-club@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.npmjs.org/web-animation-club/-/web-animation-club-0.6.0.tgz"
-  integrity sha512-9W+EQu1HiaPLe/7WZlhJ2ULqQ4VL80RPDYW+ZcjfTKp6ayOuT1k3SVO6+tu0VBRmOqueJ/mrG+rjjInIv8Aglg==
 
 webidl-conversions@^7.0.0:
   version "7.0.0"

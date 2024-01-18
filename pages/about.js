@@ -4,10 +4,10 @@ const About = () => {
 
 
   return (
-    <div>
+    <div style={{backgroundImage: `url('https://www.html.am/images/backgrounds/background-image-2.gif')`, backgroundSize: 'fill'}}>
       <section className="text-gray-600 body-font" data-aos="fade-up">
-        <div className="container px-5 py-24 mx-auto flex flex-col">
-          <div className="lg:w-4/6 mx-auto">
+        <div className="container px-5 py-10 md:py-24 mx-auto flex flex-col">
+          <div className="lg:w-4/6 mx-auto bg-slate-100">
             <div className="rounded-lg h-64 overflow-hidden">
               <img alt="content" className="object-cover object-center h-full w-full" src="/slider/aatma.png" />
             </div>
@@ -26,7 +26,7 @@ const About = () => {
                 </div>
               </div>
               <div className="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
-                <p className="leading-relaxed text-lg mb-4"><span className='font-semibold text-blue-500'>Welcome to SAGES, Bhopalpatnam</span><br />
+                <p className="leading-relaxed text-lg mb-4"><span className='font-semibold text-orange-500'>Welcome to SAGES, Bhopalpatnam</span><br />
 
                   Kolkata on 1 April 1954 was, well, a quite different city. The Independence of the country was only seven years old. India was practically reborn and so were its cities. Kolkata, still, had much more green and open expanses of land. Its southern parts were sparsely populated and this cozy community was waiting for an educational institution where learning and growing up would happen in a happy and innovative environment. A new nest that would teach their little ones to fly on confident wings.
 

@@ -5,6 +5,9 @@ import styles from '@/styles/Home.module.css'
 import Carousel2 from '@/components/Carousel';
 import { FiExternalLink } from "react-icons/fi";
 
+import { Slide } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css'
+
 
 // import Swiper core and required modules
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay, EffectCreative, EffectCards } from 'swiper/modules';
@@ -82,7 +85,11 @@ export default function Home({ nLinks }) {
     }
 
     fetchEvents();
+    const currdate = new Date().toLocaleDateString();
+    console.log(currdate)
+    // console.log("first ", currdate.toLocaleTimeString())
   }, [])
+
 
 
   const [NoticeList, setNoticeList] = useState([]);
@@ -107,6 +114,39 @@ export default function Home({ nLinks }) {
   console.log("Notice =.>", NoticeList)
 
 
+  const spanStyle = {
+    padding: '20px',
+    background: 'transparent',
+    color: 'white'
+  }
+
+  const divStyle = {
+    display: 'flex',
+    alignItems: 'end',
+    justifyContent: 'center',
+    backgroundSize: 'cover',
+  }
+
+  const slideImages = [
+    {
+      url: '/slider/aatma.png',
+      caption: 'Sages Bhopalpatanam'
+    },
+    {
+      url: '/slider/aatma2.png',
+      caption: 'Sages Bhopalpatanam'
+    },
+    {
+      url: '/slider/aatma3.png',
+      caption: 'Sages Bhopalpatanam'
+    },
+    {
+      url: '/slider/aatma4.png',
+      caption: 'Sages Bhopalpatanam'
+    },
+  ];
+
+
 
   return (
     <>
@@ -117,7 +157,7 @@ export default function Home({ nLinks }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className='min-h-screen' style={{ backgroundImage: 'url(/texture/leaves.webp)' }}>
+      <main className='min-h-screen overflow-x-hidden' style={{ backgroundImage: 'url(/texture/leaves.webp)' }}>
 
         {/* Slider Section */}
         {/* <section>
@@ -139,7 +179,7 @@ export default function Home({ nLinks }) {
 
         {/* Welcome Message Section*/}
         <section className="welcome" data-aos="fade-up">
-          <div className="flex flex-col justify-center items-center mx-5 my-12">
+          <div className="flex flex-col justify-center items-center pt-12 mx-5 my-12">
 
             <div className="section-heading ">
               <h2 className={styles.sectionTitle}>Welcome to Sages</h2>
@@ -172,6 +212,17 @@ export default function Home({ nLinks }) {
 
                 <div className='events space-y-3 my-5 h-[400px]'>
 
+                  {/* {EventList && EventList.map((item, index) => {
+                    const cc = parseInt(item.eventDate.split('-')[0]);
+                    const mm = item.eventDate.split("-")[1]
+                    if (cc > new Date().getDate()) {
+                      return (
+                        <div><h4 className='text-red-600'>{cc}</h4></div>
+                      )
+
+                    }
+
+                  })} */}
                   <div className='bg-blue-300 p-2' style={{ backgroundImage: 'url(/texture/more-leaves.png)' }}>
                     <h4 className='text-sm font-semibold'>Interaction for Class NC & I (ALONG WITH CHILD)</h4>
                     <div className='flex flex-col font-mono'>
@@ -179,6 +230,7 @@ export default function Home({ nLinks }) {
                       <span><i></i> 5.00 AM to 9.00 PM</span>
                     </div>
                   </div>
+
                   <div className='bg-red-300 p-2' style={{ backgroundImage: 'url(/texture/y-so-serious-white.png)' }}>
                     <h4 className='text-sm font-semibold'>Interaction for Class NC & I (ALONG WITH CHILD)</h4>
                     <div className='flex flex-col font-mono'>
@@ -186,6 +238,7 @@ export default function Home({ nLinks }) {
                       <span><i></i> 5.00 AM to 9.00 PM</span>
                     </div>
                   </div>
+
                   <div className='bg-green-300 p-2'>
                     <h4 className='text-sm font-semibold'>Interaction for Class NC & I (ALONG WITH CHILD)</h4>
                     <div className='flex flex-col font-mono'>
@@ -202,6 +255,18 @@ export default function Home({ nLinks }) {
               <div className='flex w-full md:w-3/5 flex-col py-8 px-4'>
                 <div className="section-heading mx-auto">
                   <h2 className={styles.sectionTitle}>Achievement / Creativity of Sages</h2>
+                </div>
+
+                <div className='py-8 border-2 border-white'>
+                  <Slide>
+                    {slideImages.map((slideImage, index) => (
+                      <div key={index}>
+                        <div className="h-[200px] w-full md:h-[400px]" style={{ ...divStyle, 'backgroundImage': `url(${slideImage.url})` }}>
+                          <span style={spanStyle}>{slideImage.caption}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </Slide>
                 </div>
 
 
@@ -522,8 +587,8 @@ export default function Home({ nLinks }) {
                 <div className="container px-5 py-24 mx-auto">
                   <div className="flex flex-wrap -mx-4 -my-8">
 
-            
-                    {EventList?.map((item, index) => (
+
+                    {EventList?.slice(0, 4).map((item, index) => (
 
                       <div key={index} className="py-8 px-4 lg:w-1/4">
                         <div className="h-full flex items-start">
@@ -597,9 +662,9 @@ export default function Home({ nLinks }) {
                   </div>
                 </div>
               </div>
-              <div className="flex mt-4 w-full mx-auto justify-end">
+              <div className="flex mt-4 w-full mx-auto justify-end ">
 
-                <Link href={'/gallery'} className="text-indigo-500 inline-flex items-center font-semibold bg-slate-100 md:mb-2 lg:mb-0">Explore
+                <Link href={'/gallery'} className="text-white border-orange-300 border-2 rounded-xl px-3 py-2 inline-flex items-center font-semibold bg-orange-500 hover:bg-orange-600 md:mb-2 lg:mb-0">Explore
                   <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
                     <path d="M5 12h14M12 5l7 7-7 7"></path>
                   </svg>
@@ -621,7 +686,7 @@ export default function Home({ nLinks }) {
               <h2 className={styles.sectionTitle}>Our School</h2>
             </div>
 
-            <div className="statsContainer flex flex-row justify-center space-x-2 md:space-x-36 my-10">
+            <div className="statsContainer flex flex-col space-y-3 md:space-y-1 md:flex-row justify-center space-x-2 md:space-x-36 my-10">
 
               <div className='flex flex-col justify-center items-center '>
                 <Image style={{ width: "auto", height: "auto" }} src='/stats/students.png' width={91} height={94} alt='image' />
@@ -652,25 +717,27 @@ export default function Home({ nLinks }) {
         </section>
 
         {/* Testinomial */}
-        {/* <section className="text-gray-600 body-font">
-          <div className="container px-5 py-12 mx-auto">
-            <div className="flex flex-wrap -m-4">
-              <div className="lg:w-full lg:mb-0 mb-6 p-4">
-                <div className="h-full text-center">
-                  <img alt="testimonial" className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="https://dummyimage.com/302x302"/>
-                    <p className="leading-relaxed mx-96">Edison bulb retro cloud bread echo park, helvetica stumptown taiyaki taxidermy 90's cronut +1 kinfolk. Single-origin coffee ennui shaman taiyaki vape DIY tote bag drinking vinegar cronut adaptogen squid fanny pack vaporware.</p>
-                    <span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4"></span>
-                    <h2 className="text-gray-900 font-bold title-font tracking-wider text-md">Nikhil Dasar</h2>
-                    <p className="text-gray-500">Software Engineer <br />Full Stack Web & Android Developer</p>
-                </div>
-              </div>
-              
-            </div>
+        <section className="text-gray-600 body-font mb-4">
+          <div className="section-heading flex justify-center w-full mb-4">
+            <h2 className={styles.sectionTitle}>Testinomial</h2>
           </div>
-        </section> */}
+          <div className="flex w-[100%] justify-center items-center px-auto ">
+
+            <div className="flex flex-col justify-center items-center mx-auto px-5 bg-slate-100 rounded-lg shadow-lg p-3">
+              <img alt="testimonial" className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="/students/nikhil.jpg" />
+              <p className="leading-relaxed w-[70vw] text-center py-4 md:px-20">It has been an absolute pleasure collaborating with Mr. Nikhil Dasar on the development of our school website. As a web developer, Mr. Nikhil Dasar has demonstrated an unparalleled level of expertise, professionalism, and dedication to delivering a digital platform that exceeds our expectations</p>
+              <span className="inline-block h-1 w-10 rounded bg-yellow-500 mt-6 mb-4"></span>
+              <h2 className="text-orange-900 font-bold title-font tracking-wider text-md flex text-center">Nikhil Dasar</h2>
+              <p className="text-orange-700 flex text-center">Software Engineer <br />Full Stack Web & Android Developer</p>
+            </div>
+
+
+
+          </div>
+        </section>
 
         <button
-          className={`fixed flex justify-center items-center bottom-4 right-4 bg-[#ffc107] text-white w-10 h-10 px-auto rounded-full ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          className={`fixed flex justify-center items-center bottom-4 right-4 bg-[#ffc107] hover:bg-[#ffc107d9] text-white w-10 h-10 px-auto rounded-full ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
             } transition-opacity duration-300 ease-in-out`}
           onClick={scrollToTop}
         >

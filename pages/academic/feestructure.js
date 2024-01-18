@@ -2,9 +2,9 @@ import React from 'react';
 
 const FeeStructure = () => {
   return (
-    <div className='min-h-screen pt-4 mt-4'>
+    <div className='min-h-screen pt-12 mt-4 mx-auto'>
       <div className="container mx-auto mt-8 my-5">
-        <h1 className="text-3xl font-bold mb-6">Fee Structure - Sages School</h1>
+        <h1 className="text-3xl font-bold mb-6 text-orange-600">Fee Structure - Sages School</h1>
 
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-xl font-bold mb-4">Academic Year 2024-2025</h2>

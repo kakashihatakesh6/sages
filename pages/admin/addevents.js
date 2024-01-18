@@ -12,12 +12,17 @@ const AddEvents = () => {
     const [selectedImage, setselectedImage] = useState(null);
     const [EventList, setEventList] = useState([]);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [Daily, setDaily] = useState(false)
+    const [classroomInteraction, setClassroomInteraction] = useState(false)
 
     //Set Form data
     const [FormData, setFormData] = useState({
         name: "",
         description: "",
+        category: "",
         date: "",
+        endDate: "",
+        eventTime: "",
         image: ""
     });
 
@@ -27,6 +32,9 @@ const AddEvents = () => {
             ...prevData,
             [name]: value,
         }));
+        if (e.target.value === 'classroomInteraction') {
+            setClassroomInteraction(true)
+        }
     };
 
     const handleImageChange = (e) => {
@@ -48,7 +56,7 @@ const AddEvents = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (FormData.name !== "" && FormData.description !== "" && FormData.date !== "") {
+        if (FormData.name !== "" && FormData.date !== "" && FormData.category !== '') {
             let data = FormData;
             let endPoint = `${process.env.NEXT_PUBLIC_HOST}/api/event/addevent`;
 
@@ -70,7 +78,8 @@ const AddEvents = () => {
                         theme: "light",
                     });
 
-                    setFormData({ name: "", description: "", date: "", image: "" });
+                    setFormData({ name: "", description: "", category: "", date: "", endDate: "", eventTime: "", image: "", });
+                    setselectedImage(null)
 
                 } else {
                     toast.error(`Sorry, Some Error Occurred`, {
@@ -163,16 +172,83 @@ const AddEvents = () => {
                                 <textarea autoComplete="aa" name="description" id="message" rows="4" onChange={handleChange} value={FormData.description} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your Description here..."></textarea>
                             </div>
 
-                            <div className="mb-4">
-                                <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event Date</label>
-                                <input autoComplete="aa" name='date' value={FormData.date} onChange={handleChange} type="text" id="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="12-Jan-2024" required />
+                            <div className="grid gap-6 mb-4 md:grid-cols-2 my-2">
+
+                                <div>
+                                    <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+                                    <select name='category' value={FormData.category} onChange={handleChange} id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                        <option >Category</option>
+                                        <option value="classroomInteraction">Classroom/Guest Interaction</option>
+                                        <option value="coCircullar">Co-Circullar</option>
+                                        <option value="dailyActivity">Daily Activity</option>
+                                        <option value="summerActivity">Summer Activity</option>
+                                        <option value="annualActivity">Annual Activity</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div className="">
+                                    <label htmlFor="eventTime" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event Time</label>
+                                    <input autoComplete="aa" name='eventTime' value={FormData.eventTime} onChange={handleChange} type="text" id="eventTime" 
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500
+                                     block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                                      dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="5.00AM - 5.00PM"
+                                      pattern="(0?[1-9]|1[0-2])\\.[0-5][0-9]AM - (0?[1-9]|1[0-2])\\.[0-5][0-9]PM" />
+                                </div>
+
+                                <div className="">
+                                    <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event Date / Start Date</label>
+                                    {classroomInteraction ? (
+                                        <input autoComplete="aa" name='date' value={FormData.date} onChange={handleChange} type="text" id="date"
+                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+                                          focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                                           dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="12/01/2024" 
+                                           pattern="(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/\d{4}" required />
+                                    ) : (
+                                        <input autoComplete="aa" name='date' value={FormData.date} onChange={handleChange} type="text" id="date"
+                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+                                          focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                                           dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="12-Jan-2024" 
+                                           pattern="(0[1-9]|[12][0-9]|3[01])-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4}" required />
+                                    )}
+
+                                </div>
+
+                                <div className="">
+                                    <label htmlFor="endDate" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Date</label>
+                                    <input autoComplete="aa" name='endDate' value={FormData.endDate} onChange={handleChange} type="text" id="endDate" 
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+                                     focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                                      dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="14-Jan-2024" 
+                                      pattern="(0[1-9]|[12][0-9]|3[01])-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4}" />
+                                </div>
+
+
+
+                                <div className='mb-4'>
+                                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Upload Poster</label>
+                                    <input onChange={handleImageChange} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file" />
+                                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px (1MB)).</p>
+                                </div>
+
+                                {selectedImage && <div className='my-auto'>
+                                    <img src={selectedImage} alt={`Preview`} style={{ width: '100px', height: 'auto' }} />
+                                </div>
+                                }
+
+
                             </div>
 
-                            <div className='mb-4'>
+                            {/* <div className='mb-4'>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Upload Poster</label>
                                 <input onChange={handleImageChange} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file" />
-                                <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
+                                <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px (1MB)).</p>
                             </div>
+
+                            {selectedImage && <div>
+                                <img src={selectedImage} alt={`Preview`} style={{ width: '100px', height: 'auto' }} />
+                            </div>
+                            } */}
 
 
                             <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 
@@ -193,15 +269,10 @@ const AddEvents = () => {
                         {EventList && EventList.length === 0 && 'No notes to display'}
                     </div>
 
-                    <div className='container flex flex-wrap space-x-4'>
+                    {/* <div className='container flex flex-col md:flex-wrap space-x-4'> */}
+                    <div className='flex w-full justify-around items-center'>
 
                         <EventItem EventList={EventList} setEventList={setEventList} />
-
-
-
-
-
-
 
                         {/* 
                         {EventList && EventList.map((item, index) => (

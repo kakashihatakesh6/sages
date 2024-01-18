@@ -2,10 +2,10 @@ import React from 'react'
 
 const Syllabus = () => {
   return (
-    <div className='min-h-screen p-4 my-4'>
+    <div className='min-h-screen p-4 mt-14' style={{backgroundImage: `url('https://www.html.am/images/backgrounds/background-image-2.gif')`, backgroundSize: 'fill'}}>
 
       <div className="container mx-auto mt-8">
-        <h1 className="text-3xl font-bold mb-6">CBSE Syllabus 2024 - Sages School</h1>
+        <h1 className="text-3xl font-bold mb-6 text-orange-500">CBSE Syllabus 2024 - Sages School</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Repeat the following card structure for each class */}

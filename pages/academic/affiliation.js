@@ -5,11 +5,11 @@ const Affiliation = () => {
     <div className='min-h-screen p-4 my-4'>
 
       <section class="text-gray-600 body-font overflow-hidden">
-        <div class="container px-5 py-12 mx-auto">
+        <div class="container md:px-5 py-3 md:py-12 mx-auto">
           <div class="flex flex-row justify-center">
 
             <div class="p-12 w-full md:w-3/4 flex flex-col items-start">
-              <span class="inline-block py-1 px-2 rounded bg-indigo-50 text-indigo-500 text-xs font-medium tracking-widest">Affiliation</span>
+              <span class="inline-block py-1 px-2 rounded bg-orange-50 text-orange-500 text-lg font-medium tracking-widest">Affiliation</span>
               <h2 class="sm:text-3xl text-2xl title-font font-medium text-gray-900 mt-4 mb-4">Welcome to Sages School - An Affiliated CBSE Institution</h2>
               <p class="leading-relaxed mb-8">
 
