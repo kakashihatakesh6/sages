@@ -3,8 +3,8 @@ import Link from 'next/link'
 const Footer = () => {
   return (
 
-    <footer className="bg-white dark:bg-gray-900 px-2 relative bottom-0">
-      <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+    <footer className="bg-white dark:bg-gray-900 px-2 relative bottom-0" style={{background: 'linear-gradient(45deg, #ce763fd4, #aff1496e)'}}>
+      <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8" style={{background: 'linear-gradient(45deg, #ce763fd4, #aff1496e)'}}>
         <div className="md:flex md:justify-between items-center">
 
           <div className="mb-6 md:mb-0 flex justify-center p-2">
