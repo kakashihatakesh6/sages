@@ -25,6 +25,7 @@ import 'swiper/css/effect-cards';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import mongoose from 'mongoose';
+import HeroSlider from '@/components/HeroSlider';
 // import Notice from '@/models/Notice';
 
 
@@ -158,23 +159,10 @@ export default function Home({ nLinks }) {
       </Head>
 
       <main className='min-h-screen overflow-x-hidden' style={{ backgroundImage: 'url(/texture/leaves.webp)' }}>
-
-        {/* Slider Section */}
-        {/* <section>
-          <div className="slider flex justify-center mt-20  md:w-[100vh] md:h-[100vh] px-5">
-            <SimpleImageSlider
-              width={1470}
-              height={600}
-              images={images} 
-              showBullets={false}
-              showNavs={true}
-              autoPlay={false}
-            />
-          </div>
-        </section> */}
-
+        
+        {/* Hero Section */}
         <section data-aos="fade-in">
-          <Carousel2 />
+          <HeroSlider />
         </section>
 
         {/* Welcome Message Section*/}
@@ -513,108 +501,6 @@ export default function Home({ nLinks }) {
                   </Swiper>
                 </div>
 
-                
-                
-
-                {/* <div className="Class-XII item-1 w-[230px]">
-                  <Swiper
-                    // install Swiper modules
-                    modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-                    spaceBetween={100}
-                    slidesPerView={1}
-                    // navigation
-                    autoplay={{
-                      delay: 1500,
-                      disableOnInteraction: false,
-                    }}
-                    // pagination={{ clickable: true }}
-                    scrollbar={{ draggable: true }}
-                  // onSwiper={(swiper) => console.log(swiper)}
-                  // onSlideChange={() => console.log('slide change')}
-                  >
-
-
-                    <SwiperSlide>
-                      <div className="item-1 flex flex-col w-full items-center px-10 py-2 rounded-md border-blue border-4 space-y-4">
-                        <h4 className='font-semibold text-lg text-center'>Class XII Toppers</h4>
-                        <img style={{ width: "230px", height: "180px" }} className='rounded-md' src='/students/Ritesh-Singh.png' alt='image' />
-                        <p>2024</p>
-                      </div>
-                    </SwiperSlide>
-
-                    <SwiperSlide>
-                      <div className="item-1 flex flex-col w-full items-center px-10 py-2 rounded-md border-blue border-4 space-y-4">
-                        <h4 className='font-semibold text-lg text-center'>Class XII Toppers</h4>
-                        <img style={{ width: "230px", height: "180px" }} className='rounded-md' src='/students/Ritesh-Singh.png' alt='image' />
-                        <p>2024</p>
-                      </div>
-                    </SwiperSlide>
-                    
-                    <SwiperSlide>
-                      <div className="item-1 flex flex-col w-full items-center px-10 py-2 rounded-md border-blue border-4 space-y-4">
-                        <h4 className='font-semibold text-lg text-center'>Class XII Toppers</h4>
-                        <img style={{ width: "230px", height: "180px" }} className='rounded-md' src='/students/Ritesh-Singh.png' alt='image' />
-                        <p>2024</p>
-                      </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                      <div className="item-1 flex flex-col w-full items-center px-10 py-2 rounded-md border-blue border-4 space-y-4">
-                        <h4 className='font-semibold text-lg text-center'>Class XII Toppers</h4>
-                        <img style={{ width: "230px", height: "180px" }} className='rounded-md' src='/students/Ritesh-Singh.png' alt='image' />
-                        <p>2024</p>
-                      </div>
-                    </SwiperSlide>
-
-                  </Swiper>
-                </div> */}
-
-                {/* <div className="Today-Birthday item-1 w-[30vh]">
-                  <Swiper
-                    // install Swiper modules
-                    modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay, EffectCards]}
-                    spaceBetween={100}
-                    slidesPerView={1}
-                    effect={'cards'}
-                    grabCursor={true}
-                    // navigation
-                    autoplay={{
-                      delay: 1500,
-                      disableOnInteraction: false,
-                    }}
-                    // pagination={{ clickable: true }}
-                    scrollbar={{ draggable: true }}
-                  // onSwiper={(swiper) => console.log(swiper)}
-                  // onSlideChange={() => console.log('slide change')}
-                  >
-
-
-                    <SwiperSlide>
-                      <div className="item-1 flex flex-col items-center px-10 py-2 rounded-md border-blue border-4 space-y-4">
-                        <h4 className='font-semibold text-md text-center'>Today's Birthday's</h4>
-                        <Image style={{ width: "auto", height: "auto" }} className='rounded-3xl' src='/students/Ritesh-Singh.png' width={160} height={150} alt='image' />
-                        <p className='font-normal'>Ritesh Singh</p>
-                      </div>
-                    </SwiperSlide>
-
-                    <SwiperSlide>
-                      <div className="item-1 flex flex-col items-center px-10 py-2 rounded-md border-blue border-4 space-y-4">
-                        <h4 className='font-semibold text-md text-center'>Today's Birthday's</h4>
-                        <Image style={{ width: "auto", height: "auto" }} className='rounded-3xl' src='/students/Ritesh-Singh.png' width={160} height={150} alt='image' />
-                        <p className='font-normal'>Ritesh Singh</p>
-                      </div>
-                    </SwiperSlide>
-
-                    <SwiperSlide>
-                      <div className="item-1 flex flex-col items-center px-10 py-2 rounded-md border-blue border-4 space-y-4">
-                        <h4 className='font-semibold text-md text-center'>Today's Birthday's</h4>
-                        <Image style={{ width: "auto", height: "auto" }} className='rounded-3xl' src='/students/Kashish-Singh.png' width={160} height={150} alt='image' />
-                        <p className='font-normal'>Kashish Singh</p>
-                      </div>
-                    </SwiperSlide>
-
-                  </Swiper>
-                </div> */}
-
               </div>
 
             </div>
@@ -828,3 +714,5 @@ export default function Home({ nLinks }) {
 
 
 // }
+
+

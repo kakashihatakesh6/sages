@@ -12,8 +12,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-
-
       colors: {
         primary: '#3498db', // Blue
         secondary: '#2ecc71', // Green
@@ -21,12 +19,12 @@ module.exports = {
         background: '#ecf0f1', // Light Grey
         text: '#2c3e50', // Dark Grey
       },
-
       animation: {
         marquee: 'marquee 15s linear infinite',
         marquee2: 'marquee2 25s linear infinite',
+        fadeIn: 'fadeIn 0.8s ease-out forwards',
+        slideUp: 'slideUp 0.8s ease-out forwards'
       },
-
       keyframes: {
         marquee: {
           '0%': { transform: 'translateY(0%)' },
@@ -36,11 +34,15 @@ module.exports = {
           '0%': { transform: 'translateX(100%)' },
           '100%': { transform: 'translateX(0%)' },
         },
+        fadeIn: {
+          '0%': { opacity: '0', transform: 'translateY(-10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' }
+        },
+        slideUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' }
+        }
       },
-
-
-
-
     },
   },
   plugins: [
